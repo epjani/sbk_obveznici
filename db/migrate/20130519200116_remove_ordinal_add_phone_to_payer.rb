@@ -5,8 +5,6 @@ class RemoveOrdinalAddPhoneToPayer < ActiveRecord::Migration
   	add_column :payers, :user_id, :integer
     add_column :payers, :created_at, :datetime
     add_column :payers, :updated_at, :datetime
-    remove_column :payers, :townships_id
-    add_column :payers, :township_id, :integer
   end
 
   def down
