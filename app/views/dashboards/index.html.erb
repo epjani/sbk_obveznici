@@ -1,0 +1,19 @@
+<table>
+	<tr><td>Redni broj</td><td>Ime i prezime</td><td>Opstina</td><td>Adresa</td><td>Telefon</td><td>JMBG</td><td>PDV</td><td>Komentar</td><td>Dodao</td><td>Datum dodavanja</td></tr>
+	<% @payers.each do |payer| %>
+		<tr>
+			<td><%= payer.id %></td>
+			<td><%= payer.subject_name %></td>
+			<td><%= payer.township.name %></td>
+			<td><%= payer.address %></td>
+			<td><%= payer.phone %></td>
+			<td><%= payer.jmbg %></td>
+			<td><%= payer.pdv_payer? %></td>
+			<td><%= payer.comment %></td>
+			<td><%= payer.user.name %></td>
+			<td><%= payer.created_at %></td>
+		</tr>
+	<% end %>
+</table>
+
+<%= link_to  "Dodaj novog obveznika", new_user_payers_path(@user.id) %>

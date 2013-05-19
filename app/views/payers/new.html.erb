@@ -1,0 +1,20 @@
+<%= form_tag user_payers_path(@user.id), :method => 'POST' do%>
+	<label>Ime i prezime</label>
+	<input name="subject_name" type="text" />
+	<label>Opstina</label>
+	<select name="township">
+		<% @townships.each do |ts| %>
+			<option value="<%=ts.id%>"><%=ts.name%></option>
+		<% end %>
+	</select>
+	<label>Adresa</label>
+	<input type="text" name="address" />
+	<label>Telefon</label>
+	<input type="text" name="phone" />
+	<label>JMBG</label>
+	<input type="text" name="jmbg" />
+	<label>PDV</label>
+	<input type="checkbox" name="pdv_payer" />
+	<textarea name="comment"></textarea>
+	<button type="submit">Snimi</button>
+<% end %>

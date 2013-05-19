@@ -8,7 +8,7 @@ development:
   database: SBKObveznici
   pool: 5
   timeout: 5000
-  username: obveznici
+  username: Obveznici
   password: obveznici123
 
 # Warning: The database defined as "test" will be erased and
@@ -19,7 +19,7 @@ development:
   database: SBKObveznici
   pool: 5
   timeout: 5000
-  username: obveznici
+  username: Obveznici
   password: obveznici123
 
 development:
@@ -27,5 +27,5 @@ development:
   database: SBKObveznici
   pool: 5
   timeout: 5000
-  username: obveznici
+  username: Obveznici
   password: obveznici123

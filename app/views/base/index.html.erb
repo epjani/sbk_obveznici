@@ -1,0 +1,7 @@
+<%= form_tag users_login_path(), :method => 'POST' do%>
+	<%= label_tag :username %>
+	<%= text_field_tag (:username) %>
+	<%= label_tag :password %>
+	<%= password_field_tag (:password) %>
+	<button type="submit" class="btn">Log in</button>
+<% end %>
