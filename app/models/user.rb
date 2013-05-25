@@ -102,6 +102,21 @@ class User < ActiveRecord::Base
 		return [{:value => 0, :name => 'Administrator'}, {:value => 1, :name => 'Uredjivac'}, {:value => 2, :name => 'Pregledavac'}]
 	end
 
+	# => Search
+	def search_payers(query_params)
+		query = ""
+		query += query_params[:township].blank? || query_params[:township] == 0 || query_params[:township] == "0" ?  "" : "township_id = #{query_params[:township]}"
+		query += query_params[:subject_name].blank? ?  "" : ' AND subject_name ilike \'%' + query_params[:subject_name] + '%\''
+		query += query_params[:address].blank? ?  "" : ' AND address ilike \'%' + query_params[:address] + '%\''
+		query += query_params[:jmbg].blank? ?  "" : ' AND jmbg ilike \'%' + query_params[:jmbg] + '%\''
+		query += query_params[:phone].blank? ?  "" : ' AND phone ilike \'%' + query_params[:phone] + '%\''
+		query += query_params[:pdv_payer].blank? ?  "" : " AND pdv_payer = #{query_params[:pdv_payer] == 'on' ? true : false}"
+		puts "--------------------------------------------------------------------------------------------"
+		puts "#{query_params}"
+		puts "--------------------------------------------------------------------------------------------"
+		puts "#{query}"
+		puts "--------------------------------------------------------------------------------------------"
+		Payer.where(query)
+	end
 
-	
 end

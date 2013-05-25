@@ -1,6 +1,7 @@
 class UsersController < BaseController
 	before_filter :check_user
   layout "application"
+  
 	def index
 	end
 

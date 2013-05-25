@@ -70,6 +70,7 @@ SbkObveznici::Application.routes.draw do
     get 'settings'
     put 'update_settings'
 
+    resources  :search, :only => [:index]
     resources :payers     
     resources :admin, :only => [:index]
     resource :dashboard do
