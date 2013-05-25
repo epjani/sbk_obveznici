@@ -5,9 +5,21 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <script>
+  	$(document).ready(function(){
+  		<% unless params[:message].blank? %>
+  			alert('<%=params[:message]%>');
+  		<% end %>
+  	});
+  </script>
 </head>
 <body>
-
+<%= link_to 'Glavni Preglednik', user_dashboard_path(@user.id)%>	
+<% if @user.is_admin? %>
+	<%= link_to 'Administracija', user_admin_index_path(@user.id) if @user.is_admin? %>
+<% end %>
+<%= link_to 'Opcije', user_settings_path(@user.id) %>
+<%= link_to 'Odjava', user_logout_path(@user.id) %>
 <%= yield %>
 
 </body>

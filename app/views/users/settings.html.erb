@@ -1,0 +1,18 @@
+<%= form_tag user_update_settings_path(@user.id), :method => 'PUT' do %>
+	<label>Ime</label>
+	<input name="name" type="text" value="<%=@user.name%>" />
+	<label>Korisnicko ime</label>
+	<input name="username" type="text" value="<%=@user.username%>" />
+	<label>Email</label>
+	<input type="text" name="email" value="<%=@user.email%>" />
+	<label>Telefon</label>
+	<input type="text" name="phone" value="<%=@user.phone%>"/>
+	<label>Uloga</label>
+	<input disabled name="role" value="<%=@user.stringify_role%>" />
+	<label>Stara lozinka</label>
+	<input type="password" name="old_pass" />
+	<label>Nova lozinka</label>
+	<input type="password" name="new_pass" />
+
+	<button type="submit">Snimi</button>
+<% end %>

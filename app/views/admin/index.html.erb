@@ -1,0 +1,27 @@
+
+<table>
+	<tr>
+		<td>Redni broj</td>
+		<td>Ime</td>
+		<td>Korisnicko ime</td>
+		<td>Email</td>
+		<td>Telefon</td>
+		<td>Uloga</td>		
+		<td>Izbrisi</td>
+		<td>Izmjeni</td>
+	</tr>
+	<% @users.each do |user| %>
+		<tr>
+			<td><%= user.id %></td>
+			<td><%= user.name %></td>
+			<td><%= user.username %></td>
+			<td><%= user.email %></td>
+			<td><%= user.phone %></td>
+			<td><%= user.stringify_role  %></td>		
+			<td><%= link_to('Izbrisi', user_destroy_path(@user.id, {:id => user.id}), :method => 'DELETE', :confirm => 'Da li ste sigurni?') %></td>
+			<td><%= link_to('Izmjeni', user_edit_path(@user.id, {:id => user.id})) %></td>
+		</tr>
+	<% end %>
+</table>
+
+<%= link_to  "Dodaj novog korisnika", user_new_path(@user.id) %>

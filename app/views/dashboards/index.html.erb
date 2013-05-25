@@ -1,5 +1,19 @@
+
 <table>
-	<tr><td>Redni broj</td><td>Ime i prezime</td><td>Opstina</td><td>Adresa</td><td>Telefon</td><td>JMBG</td><td>PDV</td><td>Komentar</td><td>Dodao</td><td>Datum dodavanja</td></tr>
+	<tr>
+		<td>Redni broj</td>
+		<td>Ime i prezime</td>
+		<td>Opstina</td>
+		<td>Adresa</td>
+		<td>Telefon</td>
+		<td>JMBG</td>
+		<td>PDV</td>
+		<td>Komentar</td>
+		<td>Dodao</td>
+		<td>Datum dodavanja</td>
+		<td>Izbrisi</td>
+		<td>Izmjeni</td>
+	</tr>
 	<% @payers.each do |payer| %>
 		<tr>
 			<td><%= payer.id %></td>
@@ -12,8 +26,9 @@
 			<td><%= payer.comment %></td>
 			<td><%= payer.user.name %></td>
 			<td><%= payer.created_at %></td>
+			<td><%= link_to('Izbrisi', user_payer_path(@user.id, payer.id), :method => 'DELETE', :confirm => 'Da li ste sigurni?') 			if (@user.id == payer.user_id || @user.is_admin?) %></td>
+			<td><%= link_to('Izmjeni', edit_user_payer_path(@user.id, payer.id)) 															if (@user.id == payer.user_id || @user.is_admin?) %></td>
 		</tr>
 	<% end %>
 </table>
-
-<%= link_to  "Dodaj novog obveznika", new_user_payers_path(@user.id) %>
+<%= link_to  "Dodaj novog obveznika", new_user_payer_path(@user.id) unless @user.is_viewer? %>

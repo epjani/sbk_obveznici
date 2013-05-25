@@ -1,0 +1,21 @@
+<%= form_tag user_payer_path(@user.id), :method => 'PUT' do%>
+	<label>Ime i prezime</label>
+	<input name="subject_name" type="text" value="<%=@payer.subject_name%>"/>
+	<label>Opstina</label>
+	<select name="township">
+		<% @townships.each do |ts| %>
+
+			<option value="<%=ts.id%>" <%= 'selected' if ts.id == @payer.township %>><%=ts.name%></option>
+		<% end %>
+	</select>
+	<label>Adresa</label>
+	<input type="text" name="address" value="<%=@payer.address %>"/>
+	<label>Telefon</label>
+	<input type="text" name="phone" value="<%=@payer.phone %>"/>
+	<label>JMBG</label>
+	<input type="text" name="jmbg" value="<%=@payer.jmbg %>"/>
+	<label>PDV</label>
+	<input type="checkbox" name="pdv_payer" <%='checked' if @payer.pdv_payer%> />
+	<textarea name="comment"><%=@payer.comment%></textarea>
+	<button type="submit">Snimi</button>
+<% end %>

@@ -1,0 +1,19 @@
+<%= form_tag user_update_path(@user.id, {:id => params[:id]}), :method => 'PUT' do |f| %>
+	<label>Ime</label>
+	<input name="name" type="text" value="<%=@editing_user.name%>" />
+	<label>Korisnicko ime</label>
+	<input name="username" type="text" value="<%=@editing_user.username%>" />
+	<label>Email</label>
+	<input type="text" name="email" value="<%=@editing_user.email%>" />
+	<label>Telefon</label>
+	<input type="text" name="phone" value="<%=@editing_user.phone%>"/>
+	<label>Uloga</label>
+	<select name="role">
+		<% @roles.each do |role| %>
+			<option value="<%=role[:value]%>" <%='selected' if @editing_user.role == role[:value] %>><%=role[:name]%></option>
+		<% end %>
+	</select>
+	<label>Lozinka</label>
+	<input type="password" name="password" />
+	<button type="submit">Snimi</button>
+<% end %>

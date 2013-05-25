@@ -1,0 +1,19 @@
+<%= form_tag user_create_path(@user.id), :method => 'POST' do%>
+	<label>Ime</label>
+	<input name="name" type="text" />
+	<label>Korisnicko ime</label>
+	<input name="username" type="text" />
+	<label>Email</label>
+	<input type="text" name="email" />
+	<label>Telefon</label>
+	<input type="text" name="phone" />
+	<label>Uloga</label>
+	<select name="role">
+		<% @roles.each do |role| %>
+			<option value="<%=role[:value]%>"><%=role[:name]%></option>
+		<% end %>
+	</select>
+	<label>Lozinka</label>
+	<input type="password" name="password" />
+	<button type="submit">Snimi</button>
+<% end %>

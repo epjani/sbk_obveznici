@@ -6,18 +6,43 @@ class User < ActiveRecord::Base
 
 	has_many :payers
 
+	# => User CRUD + stuff
 	# => Create user (can only be invoked by User::ROLE_ADMIN)
-	def create_user(name, email, phone, username, password, role)
-		if(self.role == ROLE_ADMIN)
-			hashed_pass = Digest::SHA256.hexdigest(password)
-			User.create({:name => name, :email => email, :phone => phone, :role => role, :username => username, :hash_code => hashed_pass})
-		end
+	def create_user(name, username, email, phone, role, password)
+		User.create({:name => name, :email => email, :phone => phone, :role => role, :username => username, :hash_code => Digest::SHA256.hexdigest(password)}) if self.is_admin?
 	end
 
 	def self.create_admin_user()
 		User.create({:name => 'Admin', :email => 'pjanicedin87@gmail.com', :phone => '111111', :role => ROLE_ADMIN, :username => 'admin', :hash_code => Digest::SHA256.hexdigest('obveznici')})
 	end
+	
+	def delete_user(user_id)
+		User.destroy(user_id) if self.is_admin?
+	end
 
+	# => Administrator edit
+	def edit_user(id, name, username, email, phone, role, password)
+		user = User.find id
+		user.name = name
+		user.username = username
+		user.email = email
+		user.phone = phone
+		user.role = role
+		user.hash_code = Digest::SHA256.hexdigest(password) unless password.blank?
+		user.save
+	end
+	
+	# => User edits for it's self
+	def edit_self_user(name, username, email, phone, password)
+		self.name = name
+		self.username = username
+		self.email = email
+		self.phone = phone
+		self.hash_code = Digest::SHA256.hexdigest(password) unless password.blank?
+		self.save
+	end
+
+	# => Payer CRUD
 	def get_all_payers
 		Payer.all
 	end
@@ -34,4 +59,49 @@ class User < ActiveRecord::Base
 		payer.user_id = self.id
 		payer.save
 	end
+
+	def delete_payer(payer_id)
+		payer = Payer.find(payer_id)
+		payer.destroy if(self.is_admin? || self.id == payer.user_id)
+	end
+
+	def edit_payer(payer_id, name, township_id, address, jmbg, pdv_payer, comment, phone)
+		payer = Payer.find(payer_id)
+		payer.subject_name = name
+		payer.township_id = township_id
+		payer.address = address
+		payer.jmbg = jmbg
+		payer.pdv_payer = pdv_payer
+		payer.comment = comment
+		payer.phone = phone
+		payer.save
+	end
+
+	# => User checkers
+	def is_admin?
+		return self.role == ROLE_ADMIN
+	end
+
+	def is_viewer?
+		return self.role == ROLE_BASIC
+	end
+
+	def password_valid?(old_pass)
+		return Digest::SHA256.hexdigest(old_pass) == self.hash_code
+	end
+	# => User roles utils
+	def stringify_role
+		case self.role
+			when ROLE_ADMIN then return 'Administrator'
+			when ROLE_MAIN  then return 'Uredjivac'
+			when ROLE_BASIC then return 'Pregledavac'
+		end
+	end
+
+	def get_roles
+		return [{:value => 0, :name => 'Administrator'}, {:value => 1, :name => 'Uredjivac'}, {:value => 2, :name => 'Pregledavac'}]
+	end
+
+
+	
 end

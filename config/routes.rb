@@ -58,11 +58,20 @@ SbkObveznici::Application.routes.draw do
   root :to => 'base#index'
 
   match 'users/login' => 'users#login'
-
-  resources :users do
+  
+  
+  resources :users, :only => [:index]  do
     match 'logout'
+    get 'new' => 'users#new'
+    get 'edit' => 'users#edit'
+    post 'create' => 'users#create'
+    delete 'destroy' => 'users#destroy'
+    put 'update' => 'users#update'
+    get 'settings'
+    put 'update_settings'
 
-    resource :payers
+    resources :payers     
+    resources :admin, :only => [:index]
     resource :dashboard do
       get :index
     end
